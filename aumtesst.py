@@ -1,23 +1,20 @@
-# === Libraries ===
 import random
 import time
 
-#Functions
-def intro():  
-    print("Quest for $20,000")
-    print("You're at Las Vegas Strip")
+def cash(money):
+    return"You have "+money+" dollars"
 
+print(cash(money = 20000))
+      
 def LasVegasStrip():  
     print("\nChoose a Path:")
 
-    # options
     print("\n1. Venetian Casino Resort (Plays Blackjack. Each ten players bet $2,000)")
     print("\n2. The Cosmopolitan (Roulette, each person has to bet on number, each player bets $300)")
     print("\n3. Nearest Gas Station (Play Slot Machine)")
 
     choice = input("> ")
-    
-    # return 
+     
     if choice == "1":
         return blackjack()
     elif choice == "2":
@@ -30,7 +27,6 @@ def LasVegasStrip():
 def blackjack():  #blackjack
     print("\nYou have 1 king (Value = 10) and 1 ace (Value = 1). Do you want to hit?")
     
-    # options
     print("\n1. Yes I want to hit.")
     print("2. No I don't want to hit.")
     
@@ -40,24 +36,27 @@ def blackjack():  #blackjack
         hit_card = random.choice(cards)
 
         print("...")  
-        time.sleep(2)  # dramatic pause
+        time.sleep(2)  
 
         print(f"You got a {hit_card}!")
 
-        # return
-        if hit_card in ["Jack","Queen","King"]:
+        
+        if hit_card in ["10","Jack","Queen","King"]:
             print("Blackjack! You acquire $20,000! Mission complete!")
+            money = 10000 + 20000
             return True
         else:
             print("You did not get a black jack and the other oponent did..")
             print("You have fear to lose more money after what had happened, so you return to your investor losing $2,000.")
+            money = 10000 - 2000
             return False
 
     elif choice == "2":
         print("...")
-        time.sleep(2)  # dramatic pause
+        time.sleep(2)
         print("\n9th player got blackjack. Loss of $2,000.")
         print("You have fear to lose more money after what had happened, so you return to your investor with losing $2,000.")
+        money = 10000 - 2000
         return False
     else:
         return blackjack()
@@ -74,14 +73,15 @@ def roulette():  #roulette
 
     choice_num = int(choice)
     print("The wheel spins...")
-    time.sleep(2)  # dramatic pause
+    time.sleep(2) 
 
     winning_number = random.randint(1, 37)
     print(f"...and lands on {winning_number}!")
 
-    # return
+    
     if choice_num == winning_number:
         print("It's your lucky day! You won around $22,800!")
+        money = 10000 + 20000
         return True
     else:
         print(f"You lost. You keep betting and losing money until you lose around $1,000.")
@@ -91,24 +91,24 @@ def roulette():  #roulette
 def slot_machine():  #slot machine
     print("You believe today is a good day. So you purchase 3,333 tickets.")
     print("Pulling the lever...")
-    time.sleep(2)  # dramatic pause
+    time.sleep(2) 
 
     win_chance = random.randint(1, 100)
 
-    #return 
     if win_chance == 1:
         print("JACKPOT! You won $30,000!")
+        money = 10000 + 30000
         return True
     else:
         print("You just wasted $3,333. You had enough, so you went back with shame.")
+        money = 10000 - 3333
         return False
 
-def game_loop():  # game loop
+def game_loop():  
     intro()
     while True:
         success = LasVegasStrip()
         
-        # return check
         if success:
             break
 
@@ -117,6 +117,5 @@ def game_loop():  # game loop
             print("You lost.")
             break
 
-# make the game run
 game_loop()
 
